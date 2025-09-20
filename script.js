@@ -86,6 +86,7 @@ function alterarContexto (contexto) {
 // funções temporizador
 const contagemRegressiva = () => {
     if(tempoDecorridoEmSegundos <= 0) {
+        musica.pause() // pausa a música quando o tempo termina
         audioTempoFinalizado.play()
         alert('Tempo finalizado!')
         zerar()
@@ -108,11 +109,16 @@ function iniciarOuPausar() {
     intervaloID = setInterval(contagemRegressiva, 1000)
     iniciarOuPausarBt.textContent = "Pausar"
     IniciarOuPausarBtIcone.setAttribute('src', '/imagens/pause.png')
+
+    if (musicaFocoInput.checked) {
+        musica.play() // inicia a música quando o temporizador começa
+    }
 };
 
 function zerar() {
     clearInterval(intervaloID)
     iniciarOuPausarBt.textContent = "Começar"
+    musica.pause() // pausa a música quando o temporizador é pausado
     IniciarOuPausarBtIcone.setAttribute('src', '/imagens/play_arrow.png')
     intervaloID = null
 };
